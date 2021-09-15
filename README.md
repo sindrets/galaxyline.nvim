@@ -141,19 +141,23 @@ condition.check_git_workspace()
 
 
 ---- built-in theme
-local colors = require("galaxyline.theme").default
-bg = "#202328"
-fg = "#bbc2cf"
-yellow = "#ECBE7B"
-cyan = "#008080"
-darkblue = "#081633"
-green = "#98be65"
-orange = "#FF8800"
-violet = "#a9a1e1"
-magenta = "#c678dd"
-blue = "#51afef"
-red = "#ec5f67"
+local colors = require("galaxyline.themes.colors").default
+--- Palette:
+-- bg = "#202328"
+-- fg = "#bbc2cf"
+-- yellow = "#ECBE7B"
+-- cyan = "#008080"
+-- darkblue = "#081633"
+-- green = "#98be65"
+-- orange = "#FF8800"
+-- violet = "#a9a1e1"
+-- magenta = "#c678dd"
+-- blue = "#51afef"
+-- red = "#ec5f67"
 ```
+
+> Do you want to use other themes than default or even make your own?
+> Please refer to [themes.md](./docs/themes.md)!
 
 You can also use the source of the provider function.
 
