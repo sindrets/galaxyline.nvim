@@ -7,13 +7,7 @@ galaxyline.section.short_line_left = {}
 galaxyline.section.short_line_right = {}
 galaxyline.short_line_list = {}
 
-local galaxyline_providers = require("galaxyline.provider").providers
-
-do
-  if next(galaxyline_providers) == nil then
-    require("galaxyline.provider").load_providers()
-  end
-end
+local galaxyline_providers = require("galaxyline.provider").load_providers()
 
 local function check_component_exists(component_name)
   for _, pos_value in pairs(galaxyline.section) do
@@ -204,30 +198,28 @@ local short_line = ""
 local normal_line = ""
 
 function galaxyline.load_galaxyline()
-  vim.schedule_wrap(function()
-    local left_section = load_section(galaxyline.section.left, "left")
-    local right_section = load_section(galaxyline.section.right, "right")
-    local mid_section = next(galaxyline.section.mid) ~= nil and load_section(M.section.mid, "mid") or nil
-    local short_left_section = load_section(galaxyline.section.short_line_left, "left")
-    local short_right_section = load_section(galaxyline.section.short_line_right, "right")
-    local line = ""
+  local left_section = load_section(galaxyline.section.left, "left")
+  local right_section = load_section(galaxyline.section.right, "right")
+  local mid_section = next(galaxyline.section.mid) ~= nil and load_section(M.section.mid, "mid") or nil
+  local short_left_section = load_section(galaxyline.section.short_line_left, "left")
+  local short_right_section = load_section(galaxyline.section.short_line_right, "right")
+  local line = ""
 
-    if mid_section then
-      local fill_section = "%#GalaxylineFillSection#%="
-      line = left_section .. fill_section .. mid_section .. fill_section .. right_section
-    else
-      line = left_section .. "%=" .. right_section
-    end
-    normal_line = line
-    short_line = short_left_section .. "%=" .. short_right_section
+  if mid_section then
+    local fill_section = "%#GalaxylineFillSection#%="
+    line = left_section .. fill_section .. mid_section .. fill_section .. right_section
+  else
+    line = left_section .. "%=" .. right_section
+  end
+  normal_line = line
+  short_line = short_left_section .. "%=" .. short_right_section
 
-    if vim.fn.index(galaxyline.short_line_list, vim.bo.filetype) ~= -1 then
-      line = short_line
-    end
+  if vim.fn.index(galaxyline.short_line_list, vim.bo.filetype) ~= -1 then
+    line = short_line
+  end
 
-    vim.wo.statusline = line
-    galaxyline.init_colorscheme()
-  end)
+  vim.wo.statusline = line
+  galaxyline.init_colorscheme()
 end
 
 function galaxyline.inactive_galaxyline()

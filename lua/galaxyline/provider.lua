@@ -1,44 +1,42 @@
-local galaxyline_providers = {}
-
 local function load_providers()
-  vim.schedule_wrap(function()
-    local vcs = require("galaxyline.provider_vcs")
-    local fileinfo = require("galaxyline.provider_fileinfo")
-    local buffer = require("galaxyline.provider_buffer")
-    local extension = require("galaxyline.provider_extensions")
-    local whitespace = require("galaxyline.provider_whitespace")
-    local lspclient = require("galaxyline.provider_lsp")
+  local vcs = require("galaxyline.provider_vcs")
+  local fileinfo = require("galaxyline.provider_fileinfo")
+  local buffer = require("galaxyline.provider_buffer")
+  local extension = require("galaxyline.provider_extensions")
+  local whitespace = require("galaxyline.provider_whitespace")
+  local lspclient = require("galaxyline.provider_lsp")
 
-    galaxyline_providers = {
-      BufferIcon = buffer.get_buffer_type_icon,
-      BufferNumber = buffer.get_buffer_number,
-      FileTypeName = buffer.get_buffer_filetype,
-      GitBranch = vcs.get_git_branch,
-      DiffAdd = vcs.diff_add,
-      DiffModified = vcs.diff_modified,
-      DiffRemove = vcs.diff_remove,
-      LineColumn = fileinfo.line_column,
-      FileFormat = fileinfo.get_file_format,
-      FileEncode = fileinfo.get_file_encode,
-      FileSize = fileinfo.get_file_size,
-      FileIcon = fileinfo.get_file_icon,
-      FileName = fileinfo.get_current_file_name,
-      SFileName = fileinfo.filename_in_special_buffer,
-      LinePercent = fileinfo.current_line_percent,
-      ScrollBar = extension.scrollbar_instance,
-      VistaPlugin = extension.vista_nearest,
-      WhiteSpace = whitespace.get_item,
-      GetLspClient = lspclient.get_lsp_client,
-    }
-    local diagnostic = require("galaxyline.provider_diagnostic")
-    galaxyline_providers.DiagnosticError = diagnostic.get_diagnostic_error
-    galaxyline_providers.DiagnosticWarn = diagnostic.get_diagnostic_warn
-    galaxyline_providers.DiagnosticHint = diagnostic.get_diagnostic_hint
-    galaxyline_providers.DiagnosticInfo = diagnostic.get_diagnostic_info
-  end)
+  local galaxyline_providers = {
+    BufferIcon = buffer.get_buffer_type_icon,
+    BufferNumber = buffer.get_buffer_number,
+    FileTypeName = buffer.get_buffer_filetype,
+    GitBranch = vcs.get_git_branch,
+    DiffAdd = vcs.diff_add,
+    DiffModified = vcs.diff_modified,
+    DiffRemove = vcs.diff_remove,
+    LineColumn = fileinfo.line_column,
+    FileFormat = fileinfo.get_file_format,
+    FileEncode = fileinfo.get_file_encode,
+    FileSize = fileinfo.get_file_size,
+    FileIcon = fileinfo.get_file_icon,
+    FileName = fileinfo.get_current_file_name,
+    SFileName = fileinfo.filename_in_special_buffer,
+    LinePercent = fileinfo.current_line_percent,
+    ScrollBar = extension.scrollbar_instance,
+    VistaPlugin = extension.vista_nearest,
+    WhiteSpace = whitespace.get_item,
+    GetLspClient = lspclient.get_lsp_client,
+  }
+
+  local diagnostic = require("galaxyline.provider_diagnostic")
+  galaxyline_providers.DiagnosticError = diagnostic.get_diagnostic_error
+  galaxyline_providers.DiagnosticWarn = diagnostic.get_diagnostic_warn
+  galaxyline_providers.DiagnosticHint = diagnostic.get_diagnostic_hint
+  galaxyline_providers.DiagnosticInfo = diagnostic.get_diagnostic_info
+
+  return galaxyline_providers
 end
 
 return {
-  providers = galaxyline_providers,
   load_providers = load_providers,
 }
