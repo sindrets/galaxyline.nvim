@@ -1,5 +1,4 @@
-local vim = vim
-local M = {}
+local buffer = {}
 
 local buf_icon = {
   help = "  ",
@@ -14,16 +13,16 @@ local buf_icon = {
   NvimTree = "  ",
 }
 
-function M.get_buffer_type_icon()
+function buffer.get_buffer_type_icon()
   return buf_icon[vim.bo.filetype]
 end
 
-function M.get_buffer_filetype()
+function buffer.get_buffer_filetype()
   return vim.bo.filetype:upper()
 end
 
 -- get buffer number
-function M.get_buffer_number()
+function buffer.get_buffer_number()
   local buffers = {}
   for _, val in ipairs(vim.fn.range(1, vim.fn.bufnr("$"))) do
     if vim.fn.bufexists(val) == 1 and vim.fn.buflisted(val) == 1 then
@@ -38,4 +37,4 @@ function M.get_buffer_number()
   end
 end
 
-return M
+return buffer

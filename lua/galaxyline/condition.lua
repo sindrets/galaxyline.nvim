@@ -1,13 +1,13 @@
-local M = {}
+local condition = {}
 
-function M.buffer_not_empty()
+function condition.buffer_not_empty()
   if vim.fn.empty(vim.fn.expand("%:t")) ~= 1 then
     return true
   end
   return false
 end
 
-function M.check_git_workspace()
+function condition.check_git_workspace()
   local get_git_dir = require("galaxyline.providers.vcs").get_git_dir
   if vim.bo.buftype == "terminal" then
     return false
@@ -28,7 +28,7 @@ function M.check_git_workspace()
   return true
 end
 
-function M.hide_in_width()
+function condition.hide_in_width()
   local squeeze_width = vim.fn.winwidth(0) / 2
   if squeeze_width > 50 then
     return true
@@ -36,7 +36,7 @@ function M.hide_in_width()
   return false
 end
 
-function M.check_active_lsp()
+function condition.check_active_lsp()
   local clients = vim.lsp.buf_get_clients()
   if next(clients) == nil then
     return false
@@ -44,4 +44,4 @@ function M.check_active_lsp()
   return true
 end
 
-return M
+return condition

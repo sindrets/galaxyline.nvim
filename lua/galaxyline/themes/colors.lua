@@ -1,6 +1,6 @@
-local themes = {}
+local colors = {}
 
-themes.default = {
+colors.default = {
   bg = "#202328",
   fg = "#bbc2cf",
   yellow = "#ECBE7B",
@@ -14,7 +14,7 @@ themes.default = {
   red = "#ec5f67",
 }
 
-themes["doom-one"] = {
+colors["doom-one"] = {
   bg = "#23272e",
   fg = "#bbc2cf",
   fg_alt = "#5B6268",
@@ -27,7 +27,7 @@ themes["doom-one"] = {
   red = "#ff6c6b",
 }
 
-themes.gruvbox = {
+colors.gruvbox = {
   bg = "#32302f",
   fg = "#d4be98",
   fg_alt = "#ddc7a1",
@@ -40,7 +40,7 @@ themes.gruvbox = {
   red = "#ea6962",
 }
 
-themes.nord = {
+colors.nord = {
   bg = "#3B4252",
   fg = "#ECEFF4",
   fg_alt = "#D8DEE9",
@@ -53,7 +53,7 @@ themes.nord = {
   red = "#BF616A",
 }
 
-themes.dracula = {
+colors.dracula = {
   bg = "#21222C",
   fg = "#F8F8F2",
   fg_alt = "#ABB2BF",
@@ -66,16 +66,16 @@ themes.dracula = {
   red = "#FF5555",
 }
 
-themes.get_color = function(color)
+colors.get_color = function(color)
   return function()
-    for theme_name, _ in pairs(themes) do
+    for theme_name, _ in pairs(colors) do
       if vim.g.colors_name:find(theme_name, 1, true) then
-        return themes[theme_name][color]
+        return colors[theme_name][color]
       end
     end
 
-    return themes.default[color]
+    return colors.default[color]
   end
 end
 
-return themes
+return colors

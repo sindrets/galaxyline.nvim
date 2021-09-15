@@ -1,7 +1,7 @@
-local colors = {}
+local highlights = {}
 
 -- return current background color
-function colors.get_background_color()
+function highlights.get_background_color()
   local normal_bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
   if vim.fn.empty(normal_bg) then
     return "NONE"
@@ -57,7 +57,7 @@ local function set_highlight(group, hi_info)
   vim.api.nvim_command("highlight " .. group .. " " .. fg .. " " .. bg .. " " .. style)
 end
 
-function colors.init_theme(hi_tbl)
+function highlights.init_theme(hi_tbl)
   if next(hi_tbl) == nil then
     return
   end
@@ -66,4 +66,4 @@ function colors.init_theme(hi_tbl)
   end
 end
 
-return colors
+return highlights

@@ -1,7 +1,7 @@
-local M = {}
+local extensions = {}
 
 -- extension for scoll bar
-function M.scrollbar_instance(scroll_bar_chars)
+function extensions.scrollbar_instance(scroll_bar_chars)
   local current_line = vim.fn.line(".")
   local total_lines = vim.fn.line("$")
   local default_chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
@@ -25,7 +25,7 @@ end
 -- extension for vista.vim
 -- show current function or method
 -- see https://github.com/liuchengxu/vista.vim
-function M.vista_nearest(vista_icon)
+function extensions.vista_nearest(vista_icon)
   local has_vista, vista_info = pcall(vim.api.nvim_buf_get_var, 0, "vista_nearest_method_or_function")
   if not has_vista then
     return
@@ -37,7 +37,7 @@ end
 -- extension for vimtex
 -- show current mode
 -- see https://github.com/lervag/vimtex
-function M.vimtex_status(
+function extensions.vimtex_status(
   icon_main,
   icon_sub_main,
   icon_sub_local,
@@ -86,4 +86,4 @@ function M.vimtex_status(
   return status
 end
 
-return M
+return extensions
