@@ -15,6 +15,14 @@ These are themes for galaxyline, we can also call them "preconfigured galaxyline
 Actually the only themes included are the example ones, [eviline](../lua/galaxyline/themes/eviline.lua)
 and [spaceline](../lua/galaxyline/themes/spaceline.lua), feel free to open a PR to add your own too!
 
+To use these themes you can do the following
+
+```lua
+require("galaxyline.themes.theme_name")
+```
+
+where `theme_name` is the actual theme name, e.g. `eviline`.
+
 > Type 2
 
 These are colorschemes and just colorschemes. So if you want to use your own theme
