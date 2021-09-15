@@ -200,7 +200,7 @@ local normal_line = ""
 function galaxyline.load_galaxyline()
   local left_section = load_section(galaxyline.section.left, "left")
   local right_section = load_section(galaxyline.section.right, "right")
-  local mid_section = next(galaxyline.section.mid) ~= nil and load_section(M.section.mid, "mid") or nil
+  local mid_section = next(galaxyline.section.mid) ~= nil and load_section(galaxyline.section.mid, "mid") or nil
   local short_left_section = load_section(galaxyline.section.short_line_left, "left")
   local short_right_section = load_section(galaxyline.section.short_line_right, "right")
   local line = ""
