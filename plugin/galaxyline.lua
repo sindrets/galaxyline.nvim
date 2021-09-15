@@ -3,6 +3,8 @@ if vim.fn.has("nvim-0.5") ~= 1 then
     return
 end
 
+if vim.g.loaded_galaxyline then return end
+
 vim.g.loaded_galaxyline = 1
 
 require("galaxyline").galaxyline_augroup()

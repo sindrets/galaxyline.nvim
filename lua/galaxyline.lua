@@ -261,4 +261,4 @@ function galaxyline.galaxyline_augroup()
   vim.api.nvim_command("augroup END")
 end
 
-return M
+return galaxyline
