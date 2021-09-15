@@ -1,6 +1,4 @@
-local luv = vim.loop
-local vim = vim
-local M = {}
+local vcs = {}
 local head_cache = {}
 
 -- Return parent path for specified entry (either file or directory), nil if
@@ -49,7 +47,7 @@ local function get_dir_contains(path, dirname)
 end
 
 -- Adapted from from clink-completions' git.lua
-function M.get_git_dir(path)
+function vcs.get_git_dir(path)
   -- Checks if provided directory contains git directory
   local function has_git_dir(dir)
     local git_dir = dir .. "/.git"
@@ -128,7 +126,7 @@ local function get_git_detached_head()
   end
 end
 
-function M.get_git_branch()
+function vcs.get_git_branch()
   if vim.bo.filetype == "help" then
     return
   end
@@ -143,7 +141,7 @@ function M.get_git_branch()
     current_dir = vim.fn.expand("%:p:h")
   end
 
-  local git_dir = M.get_git_dir(current_dir)
+  local git_dir = vcs.get_git_dir(current_dir)
   if not git_dir then
     return
   end
@@ -152,21 +150,21 @@ function M.get_git_branch()
   -- appended to it. Otherwise if a different gitdir is set this substitution
   -- doesn't change the root.
   local git_root = git_dir:gsub("/.git/?$", "")
-  local head_stat = luv.fs_stat(git_dir .. "/HEAD")
+  local head_stat = vim.loop.fs_stat(git_dir .. "/HEAD")
 
   if head_stat and head_stat.mtime then
     if head_cache[git_root] and head_cache[git_root].mtime == head_stat.mtime.sec and head_cache[git_root].branch then
       return head_cache[git_root].branch
     else
-      local head_file = luv.fs_open(git_dir .. "/HEAD", "r", 438)
+      local head_file = vim.loop.fs_open(git_dir .. "/HEAD", "r", 438)
       if not head_file then
         return
       end
-      local head_data = luv.fs_read(head_file, head_stat.size, 0)
+      local head_data = vim.loop.fs_read(head_file, head_stat.size, 0)
       if not head_data then
         return
       end
-      luv.fs_close(head_file)
+      vim.loop.fs_close(head_file)
 
       head_cache[git_root] = {
         head = head_data,
@@ -214,25 +212,25 @@ local function get_hunks_data()
   return diff_data
 end
 
-function M.diff_add()
+function vcs.diff_add()
   local add = get_hunks_data()[1]
   if add > 0 then
     return add .. " "
   end
 end
 
-function M.diff_modified()
+function vcs.diff_modified()
   local modified = get_hunks_data()[2]
   if modified > 0 then
     return modified .. " "
   end
 end
 
-function M.diff_remove()
+function vcs.diff_remove()
   local removed = get_hunks_data()[3]
   if removed > 0 then
     return removed .. " "
   end
 end
 
-return M
+return vcs

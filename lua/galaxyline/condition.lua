@@ -8,7 +8,7 @@ function M.buffer_not_empty()
 end
 
 function M.check_git_workspace()
-  local get_git_dir = require("galaxyline.provider_vcs").get_git_dir
+  local get_git_dir = require("galaxyline.providers.vcs").get_git_dir
   if vim.bo.buftype == "terminal" then
     return false
   end

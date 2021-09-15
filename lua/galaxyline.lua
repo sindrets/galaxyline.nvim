@@ -231,8 +231,7 @@ function galaxyline.inactive_galaxyline()
 end
 
 function galaxyline.init_colorscheme()
-  local colors = require("galaxyline.colors")
-  colors.init_theme(hi_tbl)
+  require("galaxyline.highlighting").init_theme(hi_tbl)
 end
 
 function galaxyline.disable_galaxyline()

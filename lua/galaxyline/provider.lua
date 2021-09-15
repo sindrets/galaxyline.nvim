@@ -1,10 +1,10 @@
 local function load_providers()
-  local vcs = require("galaxyline.provider_vcs")
-  local fileinfo = require("galaxyline.provider_fileinfo")
-  local buffer = require("galaxyline.provider_buffer")
-  local extension = require("galaxyline.provider_extensions")
-  local whitespace = require("galaxyline.provider_whitespace")
-  local lspclient = require("galaxyline.provider_lsp")
+  local vcs = require("galaxyline.providers.vcs")
+  local fileinfo = require("galaxyline.providers.fileinfo")
+  local buffer = require("galaxyline.providers.buffer")
+  local extension = require("galaxyline.providers.extensions")
+  local whitespace = require("galaxyline.providers.whitespace")
+  local lspclient = require("galaxyline.providers.lsp")
 
   local galaxyline_providers = {
     BufferIcon = buffer.get_buffer_type_icon,
@@ -28,7 +28,7 @@ local function load_providers()
     GetLspClient = lspclient.get_lsp_client,
   }
 
-  local diagnostic = require("galaxyline.provider_diagnostic")
+  local diagnostic = require("galaxyline.providers.diagnostic")
   galaxyline_providers.DiagnosticError = diagnostic.get_diagnostic_error
   galaxyline_providers.DiagnosticWarn = diagnostic.get_diagnostic_warn
   galaxyline_providers.DiagnosticHint = diagnostic.get_diagnostic_hint
