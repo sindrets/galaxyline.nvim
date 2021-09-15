@@ -17,7 +17,7 @@ use({
   "NTBBloodbath/galaxyline.nvim",
   -- your statusline
   config = function()
-    require("my_statusline")
+    require("galaxyline.themes.eviline")
   end,
   -- some optional icons
   requires = { "kyazdani42/nvim-web-devicons", opt = true }
