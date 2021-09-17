@@ -9,4 +9,6 @@ end
 
 vim.g.loaded_galaxyline = 1
 
+vim.g.galaxyline_themes_support = 1
+
 require("galaxyline").galaxyline_augroup()
