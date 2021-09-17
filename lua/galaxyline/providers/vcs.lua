@@ -122,8 +122,8 @@ local function get_git_head_state(git_dir)
   end
 
   local patterns = {
-    '.*no branch, (rebasing .+)%)',
-    '.*HEAD (detached .+)%)'
+    ".*no branch, (rebasing .+)%)",
+    ".*HEAD (detached .+)%)",
   }
 
   for _, pattern in ipairs(patterns) do
