@@ -4,7 +4,7 @@ local function file_readonly(readonly_icon)
   if vim.bo.filetype == "help" then
     return ""
   end
-  local icon = readonly_icon or ""
+  local icon = readonly_icon or ""
   if vim.bo.readonly == true then
     return " " .. icon .. " "
   end
