@@ -9,7 +9,7 @@ local buf_icon = {
   vista = " 識",
   vista_kind = "  ",
   dbui = "  ",
-  magit = "  ",
+  NeogitStatus = "  ",
   NvimTree = "  ",
 }
 
