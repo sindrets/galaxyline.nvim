@@ -69,7 +69,7 @@ colors.dracula = {
 colors.get_color = function(color)
   return function()
     for theme_name, _ in pairs(colors) do
-      if vim.g.colors_name:find(theme_name, 1, true) then
+      if vim.g.colors_name and vim.g.colors_name:find(theme_name, 1, true) then
         return colors[theme_name][color]
       end
     end
