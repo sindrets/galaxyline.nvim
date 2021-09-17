@@ -2,6 +2,7 @@ local function load_providers()
   local vcs = require("galaxyline.providers.vcs")
   local fileinfo = require("galaxyline.providers.fileinfo")
   local buffer = require("galaxyline.providers.buffer")
+  local search = require("galaxyline.providers.search")
   local extension = require("galaxyline.providers.extensions")
   local whitespace = require("galaxyline.providers.whitespace")
   local lspclient = require("galaxyline.providers.lsp")
@@ -26,6 +27,7 @@ local function load_providers()
     VistaPlugin = extension.vista_nearest,
     WhiteSpace = whitespace.get_item,
     GetLspClient = lspclient.get_lsp_client,
+    SearchResults = search.get_search_results,
   }
 
   local diagnostic = require("galaxyline.providers.diagnostic")

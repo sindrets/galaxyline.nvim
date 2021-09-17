@@ -74,21 +74,23 @@ using multiple then you must provide an array table for `provider`.
 ```lua
 ---- source provider functions
 -- Code diagnostics
-local diagnostic = require("galaxyline.provider_diagnostic")
+local diagnostic = require("galaxyline.providers.diagnostic")
 -- Version control
-local vcs = require("galaxyline.provider_vcs")
+local vcs = require("galaxyline.providers.vcs")
 -- Core files information
-local fileinfo = require("galaxyline.provider_fileinfo")
--- File extension
-local extension = require("galaxyline.provider_extensions")
+local fileinfo = require("galaxyline.providers.fileinfo")
+-- Extensions, aka plugins
+local extension = require("galaxyline.providers.extensions")
 -- Neovim highlighting
-local colors = require("galaxyline.colors")
+local colors = require("galaxyline.highlighting")
 -- Buffer information, e.g. corresponding icon
-local buffer = require("galaxyline.provider_buffer")
+local buffer = require("galaxyline.providers.buffer")
+-- Search results
+local search = require("galaxyline.providers.search")
 -- Spacing
-local whitespace = require("galaxyline.provider_whitespace")
+local whitespace = require("galaxyline.providers.whitespace")
 -- Active language server information
-local lspclient = require("galaxyline.provider_lsp")
+local lspclient = require("galaxyline.providers.lsp")
 
 
 ---- Providers
@@ -100,6 +102,8 @@ GitBranch = vcs.get_git_branch
 DiffAdd = vcs.diff_add             -- support vim-gitgutter vim-signify gitsigns
 DiffModified = vcs.diff_modified   -- support vim-gitgutter vim-signify gitsigns
 DiffRemove = vcs.diff_remove       -- support vim-gitgutter vim-signify gitsigns
+-- Search Provider
+SearchResults = search.get_search_results,
 -- File Provider
 LineColumn = fileinfo.line_column
 FileFormat = fileinfo.get_file_format
@@ -123,9 +127,9 @@ GetLspClient = lspclient.get_lsp_client
 
 ---- Public libs
 -- Get file icon color
-require("galaxyline.provider_fileinfo").get_file_icon_color
+require("galaxyline.providers.fileinfo").get_file_icon_color
 -- Custom file icon with color
-local my_icons = require("galaxyline.provider_fileinfo").define_file_icon()
+local my_icons = require("galaxyline.providers.fileinfo").define_file_icon()
 my_icons['your file type here'] = { color code, icon}
 -- If your filetype does is not defined in neovim  you can use file extensions
 my_icons['your file ext  in here'] = { color code, icon}
