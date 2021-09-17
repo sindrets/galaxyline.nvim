@@ -21,6 +21,7 @@ local function load_providers()
     FileSize = fileinfo.get_file_size,
     FileIcon = fileinfo.get_file_icon,
     FileName = fileinfo.get_current_file_name,
+    FilePath = fileinfo.get_current_file_path,
     SFileName = fileinfo.filename_in_special_buffer,
     LinePercent = fileinfo.current_line_percent,
     ScrollBar = extension.scrollbar_instance,

@@ -1,32 +1,69 @@
 local fileinfo = {}
 
-local function file_readonly(readonly_icon)
+local function file_readonly()
   if vim.bo.filetype == "help" then
-    return ""
+    return true
   end
-  local icon = readonly_icon or ""
+  return vim.bo.readonly
+end
+--[[ local icon = readonly_icon or ""
   if vim.bo.readonly == true then
     return " " .. icon .. " "
   end
   return ""
-end
+end ]]
 
--- get current file name
-function fileinfo.get_current_file_name(modified_icon, readonly_icon)
-  local file = vim.fn.expand("%:t")
+local function file_with_icons(file, modified_icon, readonly_icon)
   if vim.fn.empty(file) == 1 then
     return ""
   end
-  if string.len(file_readonly(readonly_icon)) ~= 0 then
-    return file .. file_readonly(readonly_icon)
+
+  modified_icon = modified_icon or ""
+  readonly_icon = readonly_icon or ""
+
+  if file_readonly() then
+    file = readonly_icon .. " " .. file
   end
-  local icon = modified_icon or ""
-  if vim.bo.modifiable then
-    if vim.bo.modified then
-      return file .. " " .. icon .. "  "
+
+  if vim.bo.modifiable and vim.bo.modified then
+    file = file .. " " .. modified_icon
+  end
+
+  return " " .. file .. " "
+end
+
+--- Get the current file name
+--- @param modified_icon string
+--- @param readonly_icon string
+--- @return string
+fileinfo.get_current_file_name = function(modified_icon, readonly_icon)
+  local file = vim.fn.expand("%:t")
+  return file_with_icons(file, modified_icon, readonly_icon)
+end
+
+fileinfo.get_current_file_path = function(modified_icon, readonly_icon)
+  local max_dirs = 1
+  local file_with_path = "..."
+  local file_sep = package.config:sub(1, 1)
+  local path_to_file = vim.split(vim.fn.fnamemodify(vim.fn.expand("%"), ":~:."), file_sep)
+  for i, _ in ipairs(path_to_file) do
+    if i <= max_dirs then
+      if i == 1 then
+        if path_to_file[#path_to_file - max_dirs] == nil then
+          file_with_path = file_with_path .. "/" .. path_to_file[#path_to_file - (#path_to_file - 1)]
+        else
+          file_with_path = file_with_path .. "/" .. path_to_file[#path_to_file - max_dirs]
+        end
+      else
+        file_with_path = file_with_path .. "/" .. path_to_file[#path_to_file - (i - 1)]
+      end
+    else
+      file_with_path = file_with_path .. "/" .. path_to_file[#path_to_file]
+      break
     end
   end
-  return file .. " "
+
+  return file_with_icons(file_with_path, modified_icon, readonly_icon)
 end
 
 -- format print current file size
