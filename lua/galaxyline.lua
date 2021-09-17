@@ -6,6 +6,7 @@ galaxyline.section.mid = {}
 galaxyline.section.short_line_left = {}
 galaxyline.section.short_line_right = {}
 galaxyline.short_line_list = {}
+galaxyline.exclude_filetypes = {}
 
 local galaxyline_providers = require("galaxyline.provider").load_providers()
 
@@ -218,8 +219,10 @@ function galaxyline.load_galaxyline()
     line = short_line
   end
 
-  vim.wo.statusline = line
-  galaxyline.init_colorscheme()
+  if vim.fn.index(galaxyline.exclude_filetypes, vim.bo.filetype) == -1 then
+    vim.wo.statusline = line
+    galaxyline.init_colorscheme()
+  end
 end
 
 function galaxyline.inactive_galaxyline()
