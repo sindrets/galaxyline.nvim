@@ -135,9 +135,12 @@ local function get_git_head_state(git_dir)
 end
 
 vcs.get_git_branch = function()
-  if vim.bo.filetype == "help" then
-    return
+  -- Try to get branch with gitsigns first before trying to get it directly with Git
+  if vim.fn.exists("b:gitsigns_head") == 1 then
+    local git_branch = vim.api.nvim_buf_get_var(0, "gitsigns_head")
+    return git_branch
   end
+
   local current_file = vim.fn.expand("%:p")
   local current_dir
 
@@ -211,11 +214,11 @@ local function get_hunks_data()
     diff_data[2] = vim.fn["sy#repo#get_stats"]()[2]
     diff_data[3] = vim.fn["sy#repo#get_stats"]()[3]
     return diff_data
-  elseif vim.fn.exists("b:gitsigns_status") == 1 then
-    local gitsigns_dict = vim.api.nvim_buf_get_var(0, "gitsigns_status")
-    diff_data[1] = tonumber(gitsigns_dict:match("+(%d+)")) or 0
-    diff_data[2] = tonumber(gitsigns_dict:match("~(%d+)")) or 0
-    diff_data[3] = tonumber(gitsigns_dict:match("-(%d+)")) or 0
+  elseif vim.fn.exists("b:gitsigns_status_dict") == 1 then
+    local gitsigns_dict = vim.api.nvim_buf_get_var(0, "gitsigns_status_dict")
+    diff_data[1] = gitsigns_dict.added or 0
+    diff_data[2] = gitsigns_dict.changed or 0
+    diff_data[3] = gitsigns_dict.removed or 0
   end
   return diff_data
 end
