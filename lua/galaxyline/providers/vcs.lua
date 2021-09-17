@@ -47,7 +47,7 @@ local function get_dir_contains(path, dirname)
 end
 
 -- Adapted from from clink-completions' git.lua
-function vcs.get_git_dir(path)
+vcs.get_git_dir = function(path)
   -- Checks if provided directory contains git directory
   local function has_git_dir(dir)
     local git_dir = dir .. "/.git"
@@ -134,7 +134,7 @@ local function get_git_head_state(git_dir)
   end
 end
 
-function vcs.get_git_branch()
+vcs.get_git_branch = function()
   if vim.bo.filetype == "help" then
     return
   end
@@ -220,21 +220,21 @@ local function get_hunks_data()
   return diff_data
 end
 
-function vcs.diff_add()
+vcs.diff_add = function()
   local add = get_hunks_data()[1]
   if add > 0 then
     return add .. " "
   end
 end
 
-function vcs.diff_modified()
+vcs.diff_modified = function()
   local modified = get_hunks_data()[2]
   if modified > 0 then
     return modified .. " "
   end
 end
 
-function vcs.diff_remove()
+vcs.diff_remove = function()
   local removed = get_hunks_data()[3]
   if removed > 0 then
     return removed .. " "

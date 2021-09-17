@@ -13,16 +13,16 @@ local buf_icon = {
   NvimTree = "  ",
 }
 
-function buffer.get_buffer_type_icon()
+buffer.get_buffer_type_icon = function()
   return buf_icon[vim.bo.filetype]
 end
 
-function buffer.get_buffer_filetype()
+buffer.get_buffer_filetype = function()
   return vim.bo.filetype:upper()
 end
 
 -- get buffer number
-function buffer.get_buffer_number()
+buffer.get_buffer_number = function()
   local buffers = {}
   for _, val in ipairs(vim.fn.range(1, vim.fn.bufnr("$"))) do
     if vim.fn.bufexists(val) == 1 and vim.fn.buflisted(val) == 1 then

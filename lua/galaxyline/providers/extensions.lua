@@ -1,7 +1,7 @@
 local extensions = {}
 
 -- extension for scoll bar
-function extensions.scrollbar_instance(scroll_bar_chars)
+extensions.scrollbar_instance = function(scroll_bar_chars)
   local current_line = vim.fn.line(".")
   local total_lines = vim.fn.line("$")
   local default_chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
@@ -25,7 +25,7 @@ end
 -- extension for vista.vim
 -- show current function or method
 -- see https://github.com/liuchengxu/vista.vim
-function extensions.vista_nearest(vista_icon)
+extensions.vista_nearest = function(vista_icon)
   local has_vista, vista_info = pcall(vim.api.nvim_buf_get_var, 0, "vista_nearest_method_or_function")
   if not has_vista then
     return
@@ -37,53 +37,46 @@ end
 -- extension for vimtex
 -- show current mode
 -- see https://github.com/lervag/vimtex
-function extensions.vimtex_status(
-  icon_main,
-  icon_sub_main,
-  icon_sub_local,
-  icon_compiled,
-  icon_continuous,
-  icon_viewer,
-  icon_none
-)
-  local ic_main = icon_main or ""
-  local ic_sub_main = icon_sub_main or "m"
-  local ic_sub_local = icon_sub_local or "l"
-  local ic_compiled = icon_compiled or "c₁"
-  local ic_continuous = icon_continuous or "c"
-  local ic_viewer = icon_viewer or "v"
-  local ic_none = icon_none or "0"
+extensions.vimtex_status =
+  function(icon_main, icon_sub_main, icon_sub_local, icon_compiled, icon_continuous, icon_viewer, icon_none)
+    local ic_main = icon_main or ""
+    local ic_sub_main = icon_sub_main or "m"
+    local ic_sub_local = icon_sub_local or "l"
+    local ic_compiled = icon_compiled or "c₁"
+    local ic_continuous = icon_continuous or "c"
+    local ic_viewer = icon_viewer or "v"
+    local ic_none = icon_none or "0"
 
-  local status = {}
+    local status = {}
 
-  local has_vt_local, vt_local = pcall(vim.api.nvim_buf_get_var, 0, "vimtex_local")
-  if has_vt_local then
-    if vt_local["active"] then
-      table.insert(status, ic_sub_local)
+    local has_vt_local, vt_local = pcall(vim.api.nvim_buf_get_var, 0, "vimtex_local")
+    if has_vt_local then
+      if vt_local["active"] then
+        table.insert(status, ic_sub_local)
+      else
+        table.insert(status, ic_sub_main)
+      end
     else
-      table.insert(status, ic_sub_main)
+      table.insert(status, ic_main)
     end
-  else
-    table.insert(status, ic_main)
-  end
 
-  local has_vt, vt = pcall(vim.api.nvim_buf_get_var, 0, "vimtex")
-  if has_vt then
-    if vt["compiler"] then
-      if vim.api.nvim_eval("b:vimtex.compiler.is_running()") == 1 then
-        if vt["compiler"]["continuous"] then
-          table.insert(status, ic_continuous)
-        else
-          table.insert(status, ic_compiled)
+    local has_vt, vt = pcall(vim.api.nvim_buf_get_var, 0, "vimtex")
+    if has_vt then
+      if vt["compiler"] then
+        if vim.api.nvim_eval("b:vimtex.compiler.is_running()") == 1 then
+          if vt["compiler"]["continuous"] then
+            table.insert(status, ic_continuous)
+          else
+            table.insert(status, ic_compiled)
+          end
         end
       end
     end
+    status = table.concat(status)
+    if status == "" then
+      status = ic_none
+    end
+    return status
   end
-  status = table.concat(status)
-  if status == "" then
-    status = ic_none
-  end
-  return status
-end
 
 return extensions

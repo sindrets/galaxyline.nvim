@@ -1,6 +1,6 @@
 local search = {}
 
-function search.get_results()
+search.get_results = function()
   local search_term = vim.fn.getreg("/")
   local search_count = vim.fn.searchcount({
     recompute = 1,

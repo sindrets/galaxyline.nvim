@@ -67,7 +67,7 @@ fileinfo.get_current_file_path = function(modified_icon, readonly_icon)
 end
 
 -- format print current file size
-function fileinfo.format_file_size(file)
+fileinfo.format_file_size = function(file)
   local size = vim.fn.getfsize(file)
   if size == 0 or size == -1 or size == -2 then
     return ""
@@ -84,7 +84,7 @@ function fileinfo.format_file_size(file)
   return size .. " "
 end
 
-function fileinfo.get_file_size()
+fileinfo.get_file_size = function()
   local file = vim.fn.expand("%:p")
   if string.len(file) == 0 then
     return ""
@@ -93,26 +93,26 @@ function fileinfo.get_file_size()
 end
 
 -- get file encode
-function fileinfo.get_file_encode()
+fileinfo.get_file_encode = function()
   local encode = vim.bo.fenc ~= "" and vim.bo.fenc or vim.o.enc
   return " " .. encode:upper()
 end
 
 -- get file format
 -- and cover to upper
-function fileinfo.get_file_format()
+fileinfo.get_file_format = function()
   return vim.bo.fileformat:upper()
 end
 
 -- show line:column
-function fileinfo.line_column()
+fileinfo.line_column = function()
   local line = vim.fn.line(".")
   local column = vim.fn.col(".")
   return string.format("%3d :%2d ", line, column)
 end
 
 -- show current line percent of all lines
-function fileinfo.current_line_percent()
+fileinfo.current_line_percent = function()
   local current_line = vim.fn.line(".")
   local total_line = vim.fn.line("$")
   if current_line == 1 then
@@ -165,7 +165,7 @@ local icons = {
 -- filetype or extensions : { colors ,icon}
 local user_icons = {}
 
-function fileinfo.define_file_icon()
+fileinfo.define_file_icon = function()
   return user_icons
 end
 
@@ -173,7 +173,7 @@ local function get_file_info()
   return vim.fn.expand("%:t"), vim.fn.expand("%:e")
 end
 
-function fileinfo.get_file_icon()
+fileinfo.get_file_icon = function()
   local icon = ""
   if vim.fn.exists("*WebDevIconsGetFileTypeSymbol") == 1 then
     icon = vim.fn.WebDevIconsGetFileTypeSymbol()
@@ -198,7 +198,7 @@ function fileinfo.get_file_icon()
   return icon .. " "
 end
 
-function fileinfo.get_file_icon_color()
+fileinfo.get_file_icon_color = function()
   local filetype = vim.bo.filetype
   local f_name, f_ext = get_file_info()
 
@@ -226,7 +226,7 @@ function fileinfo.get_file_icon_color()
   end
 end
 
-function fileinfo.filename_in_special_buffer()
+fileinfo.filename_in_special_buffer = function()
   local short_list = require("galaxyline").short_line_list
   local fname = fileinfo.get_current_file_name()
   for _, v in ipairs(short_list) do
