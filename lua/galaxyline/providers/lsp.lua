@@ -1,18 +1,19 @@
 local get_lsp_client = function(msg)
   msg = msg or "No Active Lsp"
-  local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
   local clients = vim.lsp.get_active_clients()
   if next(clients) == nil then
     return msg
   end
 
+  local client_names = ""
   for _, client in ipairs(clients) do
-    local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      return client.name
+    if string.len(client_names) < 1 then
+      client_names = client_names .. client.name
+    else
+      client_names = client_names .. ", " .. client.name
     end
   end
-  return msg
+  return string.len(client_names) > 0 and client_names or msg
 end
 
 return {
