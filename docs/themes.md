@@ -64,6 +64,38 @@ These differences are the following:
    the only way that I found to make it work, and our ViMode will not like this, so we need to add an extra `()`
    at the end of our `mode_color` table result to actually get the color hex, e.g. `mode_color[vim.fn.mode()]()`.
 
+So by example, for using dynamic colorschemes:
+
+```lua
+local colors = require("galaxyline.themes.colors").get_color
+
+-- Left side
+  gls.left[1] = {
+    RainbowLeft = {
+      provider = function()
+        return "▊ "
+      end,
+      highlight = { colors("blue"), colors("bg") },
+    },
+  }
+```
+
+And when using static colors (e.g. when using a specific color theme):
+
+```lua
+local colors = require("galaxyline.themes.colors").gruvbox
+
+-- Left side
+  gls.left[1] = {
+    RainbowLeft = {
+      provider = function()
+        return "▊ "
+      end,
+      highlight = { colors.blue, colors.bg },
+    },
+  }
+```
+
 ## Making your own themes
 
 > Please see [Colors standards](#colors-standards) to know the colors naming conventions.
@@ -73,7 +105,14 @@ Making your own theme is easy as requiring galaxyline colors module, add your th
 By example, to create a theme for [Code dark colorscheme](https://github.com/tomasiser/vim-code-dark):
 
 ```lua
-require("galaxyline.themes.colors").codedark = {
+-- Check if the end user is using this fork with themes support
+-- before trying to add the theme
+local present, galaxyline_colors = pcall(require, "galaxyline.themes.colors")
+if not present then
+  return
+end
+
+galaxyline_colors.codedark = {
   bg = "#1e1e1e",
   fg = "#dcdcdc",
   fg_alt = "#808080",
