@@ -92,6 +92,9 @@ require("galaxyline.themes.colors").codedark = {
 Well since we don't have internal standards for this you can place it everywhere. But I would highly recommend adding
 this under a directory like this `lua/your_colorscheme_name/galaxyline/theme.lua`.
 
+We also expose a global vim variable called `galaxyline_themes_support`, this should be used to identify if the end user
+is actually using NTBBloodbath's galaxyline fork or upstream one to avoid having issues when creating themes in your colorscheme.
+
 ## Colors standards
 
 Color schemes should contain only _and obligatorily_ the following fields:
