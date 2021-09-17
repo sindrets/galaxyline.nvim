@@ -90,7 +90,7 @@ require("galaxyline.themes.colors").codedark = {
 > Where should I place this code snippet?
 
 Well since we don't have internal standards for this you can place it everywhere. But I would highly recommend adding
-this under a directory like this `lua/your_colorscheme_name/galaxyline/colors/theme.lua` and then source this file
+this under a directory like this `lua/your_colorscheme_name/galaxyline/theme.lua` and then source this file
 in your colorscheme.
 
 We also expose a global vim variable called `galaxyline_themes_support`, this should be used to identify if the end user
