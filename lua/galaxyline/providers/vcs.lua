@@ -109,8 +109,9 @@ function vcs.get_git_dir(path)
   return path .. "/" .. git_dir
 end
 
-local function get_git_head_state()
-  local git_branches_file = io.popen("git branch -a --no-abbrev --contains", "r")
+local function get_git_head_state(git_dir)
+  local git_branches_cmd = string.format("git --git-dir=%s branch -a --no-abbrev --contains", git_dir)
+  local git_branches_file = io.popen(git_branches_cmd, "r")
   if not git_branches_file then
     return
   end
@@ -185,7 +186,7 @@ function vcs.get_git_branch()
   local branch_name = head_cache[git_root].head:match("ref: refs/heads/([^\n\r%s]+)")
   if not branch_name then
     -- check if detached head or rebase in progress
-    branch_name = get_git_head_state()
+    branch_name = get_git_head_state(git_dir)
     if not branch_name then
       return
     end
