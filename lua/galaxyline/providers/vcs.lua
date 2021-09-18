@@ -136,7 +136,7 @@ end
 
 vcs.get_git_branch = function()
   -- Try to get branch with gitsigns first before trying to get it directly with Git
-  if vim.fn.exists("b:gitsigns_head") == 1 then
+  if vim.b.gitsigns_head and string.len(vim.b.gitsigns_head) > 0 then
     local git_branch = vim.api.nvim_buf_get_var(0, "gitsigns_head")
     return git_branch
   end
