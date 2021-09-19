@@ -1,7 +1,7 @@
 local gl     = require('galaxyline')
 local gls    = gl.section
 local colors = {
-    bg      = '#212234',
+    bg      = '#1f2335',
     fg      = '#06080A',
     red     = '#EE6D85',
     orange  = '#F6955B',
@@ -11,6 +11,7 @@ local colors = {
     cyan    = '#38A89D',
     purple  = '#A485DD',
     magenta = '#bb9af7',
+    white   = '#efefef',
 }
 
 local buffer    = require('galaxyline.providers.buffer')
@@ -74,7 +75,7 @@ gls.left[1] = { ModeNum = { -- {{{2
 -- }}}2
 
 gls.left[2] = { BufSep = { -- {{{2
-	highlight = {colors.bg, colors.bg_statusline},
+	highlight = {colors.bg, colors.bg},
 
 	provider = function ()
 		vim.api.nvim_command("hi GalaxyBufSep guibg="..mode_color[vim.fn.mode()])
@@ -98,7 +99,7 @@ gls.left[4] = { FileName = { -- {{{2
 -- }}}2
 
 gls.left[5] = { FileSep = { -- {{{2
-	highlight = {colors.bg, colors.bg_statusline},
+	highlight = {colors.bg, colors.bg},
 
 	provider = function ()
 		vim.api.nvim_command('hi GalaxyFileSep guibg='..mode_color[vim.fn.mode()])
@@ -122,7 +123,7 @@ gls.left[6] = { FileEF = { -- {{{2
 -- }}}2
 
 gls.left[7] = { EFSep = { -- {{{2
-	highlight = {colors.bg, colors.bg_statusline},
+	highlight = {colors.bg, colors.bg},
 
 	provider = function ()
 		vim.api.nvim_command('hi GalaxyEFSep guibg='..mode_color[vim.fn.mode()])
@@ -147,7 +148,7 @@ gls.left[8] = { Git = { -- {{{2
 
 -- Centered modules {{{1
 gls.mid[0] = { Empty = {
-	highlight = {colors.bg, colors.bg_statusline},
+	highlight = {colors.bg, colors.bg},
 	provider  = function () return end,
 }}
 -- }}}1
@@ -236,7 +237,7 @@ gls.right[4] = { DiagnosticInfo = { -- {{{2
 -- }}}2
 
 gls.right[5] = { LineSep = { -- {{{2
-	highlight = {colors.bg, colors.bg_statusline},
+	highlight = {colors.bg, colors.bg},
 
 	provider = function ()
 		vim.api.nvim_command('hi GalaxyLineSep guibg='..mode_color[vim.fn.mode()])
