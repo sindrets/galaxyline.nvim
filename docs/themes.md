@@ -23,6 +23,12 @@ require("galaxyline.themes.theme_name")
 
 where `theme_name` is the actual theme name, e.g. `eviline`.
 
+### List of themes
+
+- eviline
+- spaceline
+- neonline (by @Groctel)
+
 > Type 2
 
 These are colorschemes and just colorschemes. So if you want to use your own theme
