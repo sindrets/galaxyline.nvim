@@ -1,7 +1,7 @@
 local condition = {}
 
 condition.buffer_not_empty = function()
-  local buffer_lines = vim.api.nivm_buf_get_lines(0, 0, vim.fn.line("$"), true)
+  local buffer_lines = vim.api.nvim_buf_get_lines(0, 0, vim.fn.line("$"), true)
   return buffer_lines[1] == "" and #buffer_lines == 1
 end
 
