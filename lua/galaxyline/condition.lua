@@ -2,7 +2,10 @@ local condition = {}
 
 condition.buffer_not_empty = function()
   local buffer_lines = vim.api.nvim_buf_get_lines(0, 0, vim.fn.line("$"), true)
-  return buffer_lines[1] == "" and #buffer_lines == 1
+  if buffer_lines[1] == "" and #buffer_lines == 1 then
+    return false
+  end
+  return true
 end
 
 condition.check_git_workspace = function()
@@ -28,7 +31,7 @@ end
 
 condition.hide_in_width = function()
   local squeeze_width = vim.api.nvim_win_get_width(0) / 2
-  if squeeze_width > 50 then
+  if squeeze_width >= 50 then
     return true
   end
   return false
