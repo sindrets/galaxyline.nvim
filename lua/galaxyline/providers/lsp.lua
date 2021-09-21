@@ -1,6 +1,6 @@
 local get_lsp_client = function(msg)
   msg = msg or "No Active Lsp"
-  local clients = vim.lsp.get_active_clients()
+  local clients = vim.lsp.buf_get_clients()
   if next(clients) == nil then
     return msg
   end
