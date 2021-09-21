@@ -6,7 +6,7 @@ local get_lsp_client = function(msg)
   end
 
   local client_names = ""
-  for _, client in ipairs(clients) do
+  for _, client in pairs(clients) do
     if string.len(client_names) < 1 then
       client_names = client_names .. client.name
     else
