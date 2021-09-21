@@ -1,10 +1,8 @@
 local condition = {}
 
 condition.buffer_not_empty = function()
-  if vim.fn.empty(vim.fn.expand("%:t")) ~= 1 then
-    return true
-  end
-  return false
+  local buffer_lines = vim.api.nivm_buf_get_lines(0, 0, vim.fn.line("$"), true)
+  return buffer_lines[1] == "" and #buffer_lines == 1
 end
 
 condition.check_git_workspace = function()
@@ -12,7 +10,7 @@ condition.check_git_workspace = function()
   if vim.bo.buftype == "terminal" then
     return false
   end
-  local current_file = vim.fn.expand("%:p")
+  local current_file = vim.api.nvim_buf_get_name(0)
   local current_dir
   -- if file is a symlinks
   if vim.fn.getftype(current_file) == "link" then
@@ -29,7 +27,7 @@ condition.check_git_workspace = function()
 end
 
 condition.hide_in_width = function()
-  local squeeze_width = vim.fn.winwidth(0) / 2
+  local squeeze_width = vim.api.nvim_win_get_width(0) / 2
   if squeeze_width > 50 then
     return true
   end
@@ -38,10 +36,7 @@ end
 
 condition.check_active_lsp = function()
   local clients = vim.lsp.buf_get_clients()
-  if next(clients) == nil then
-    return false
-  end
-  return true
+  return next(clients) == nil
 end
 
 return condition
