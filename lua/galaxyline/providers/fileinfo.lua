@@ -31,7 +31,7 @@ end
 --- @param readonly_icon string
 --- @return string
 fileinfo.get_current_file_name = function(modified_icon, readonly_icon)
-  local file = vim.api.nvim_buf_get_name(0)
+  local file = vim.fn.expand("%:t")
   return file_with_icons(file, modified_icon, readonly_icon)
 end
 
@@ -168,7 +168,7 @@ local function get_file_info()
 end
 
 fileinfo.get_file_icon = function()
-  local icon = ""
+  local icon
   if vim.fn.exists("*WebDevIconsGetFileTypeSymbol") == 1 then
     icon = vim.fn.WebDevIconsGetFileTypeSymbol()
     return icon .. " "
