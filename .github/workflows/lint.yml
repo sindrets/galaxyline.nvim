@@ -14,5 +14,5 @@ jobs:
       - uses: nebularg/actions-luacheck@v1.1.0
         with:
           files: 'lua/'
-          config: 'https://raw.githubusercontent.com/NTBBloodbath/galaxyline/main/.luacheckrc'
+          config: 'https://raw.githubusercontent.com/NTBBloodbath/galaxyline.nvim/main/.luacheckrc'
           annotate: 'error'
