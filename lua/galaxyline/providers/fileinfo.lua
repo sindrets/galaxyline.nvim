@@ -6,12 +6,6 @@ local function file_readonly()
   end
   return vim.bo.readonly
 end
---[[ local icon = readonly_icon or ""
-  if vim.bo.readonly == true then
-    return " " .. icon .. " "
-  end
-  return ""
-end ]]
 
 local function file_with_icons(file, modified_icon, readonly_icon)
   if vim.fn.empty(file) == 1 then
@@ -37,7 +31,7 @@ end
 --- @param readonly_icon string
 --- @return string
 fileinfo.get_current_file_name = function(modified_icon, readonly_icon)
-  local file = vim.fn.expand("%:t")
+  local file = vim.api.nvim_buf_get_name(0)
   return file_with_icons(file, modified_icon, readonly_icon)
 end
 
@@ -85,7 +79,7 @@ fileinfo.format_file_size = function(file)
 end
 
 fileinfo.get_file_size = function()
-  local file = vim.fn.expand("%:p")
+  local file = vim.api.nvim_buf_get_name(0)
   if string.len(file) == 0 then
     return ""
   end
