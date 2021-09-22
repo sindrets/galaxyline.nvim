@@ -204,7 +204,7 @@ function galaxyline.load_galaxyline()
   local mid_section = next(galaxyline.section.mid) ~= nil and load_section(galaxyline.section.mid, "mid") or nil
   local short_left_section = load_section(galaxyline.section.short_line_left, "left")
   local short_right_section = load_section(galaxyline.section.short_line_right, "right")
-  local line = ""
+  local line
 
   if mid_section then
     local fill_section = "%#GalaxylineFillSection#%="

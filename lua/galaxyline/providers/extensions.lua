@@ -6,7 +6,7 @@ extensions.scrollbar_instance = function(scroll_bar_chars)
   local total_lines = vim.fn.line("$")
   local default_chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
   local chars = scroll_bar_chars or default_chars
-  local index = 1
+  local index
 
   if current_line == 1 then
     index = 1
@@ -44,7 +44,7 @@ extensions.vimtex_status =
     local ic_sub_local = icon_sub_local or "l"
     local ic_compiled = icon_compiled or "c₁"
     local ic_continuous = icon_continuous or "c"
-    local ic_viewer = icon_viewer or "v"
+    local _ = icon_viewer or "v"
     local ic_none = icon_none or "0"
 
     local status = {}
