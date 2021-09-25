@@ -103,7 +103,7 @@ DiffAdd = vcs.diff_add             -- support vim-gitgutter vim-signify gitsigns
 DiffModified = vcs.diff_modified   -- support vim-gitgutter vim-signify gitsigns
 DiffRemove = vcs.diff_remove       -- support vim-gitgutter vim-signify gitsigns
 -- Search Provider
-SearchResults = search.get_search_results,
+SearchResults = search.get_results,
 -- File Provider
 LineColumn = fileinfo.line_column
 FileFormat = fileinfo.get_file_format
