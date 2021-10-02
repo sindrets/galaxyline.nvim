@@ -194,7 +194,7 @@ end
 local short_line = ""
 local normal_line = ""
 
-function galaxyline.load_galaxyline()
+galaxyline.load_galaxyline = vim.schedule_wrap(function()
   local left_section = load_section(galaxyline.section.left, "left")
   local right_section = load_section(galaxyline.section.right, "right")
   local mid_section = next(galaxyline.section.mid) ~= nil and load_section(galaxyline.section.mid, "mid") or nil
@@ -219,7 +219,7 @@ function galaxyline.load_galaxyline()
     vim.wo.statusline = line
     galaxyline.init_colorscheme()
   end
-end
+end)
 
 function galaxyline.inactive_galaxyline()
   if next(galaxyline.short_line_list) == nil then
